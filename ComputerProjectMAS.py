@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import matplotlib.pyplot as plt
 
 # Read and clean data
 dataframe = pd.read_csv('Height of Male and Female by Country 2022.csv', usecols=['Country Name', 'Male Height in Cm', 'Female Height in Cm'])
@@ -62,7 +63,7 @@ if CheckBox_Question1:
     st.dataframe(Dataframe_Question1)
 
 
-import matplotlib.pyplot as plt
+
 
 # Question 2
 CheckBox_Question2 = st.sidebar.checkbox('Question 2', True)
