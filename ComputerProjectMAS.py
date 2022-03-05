@@ -1,8 +1,5 @@
-from turtle import color
-from numpy import pad
 import streamlit as st
 import pandas as pd
-from torch import tile
 
 # Read and clean data
 dataframe = pd.read_csv('Height of Male and Female by Country 2022.csv', usecols=['Country Name', 'Male Height in Cm', 'Female Height in Cm'])
