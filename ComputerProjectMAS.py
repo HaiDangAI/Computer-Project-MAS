@@ -100,7 +100,7 @@ if CheckBox_Question4:
     st.pyplot(fig)
 
 st.markdown("""
-    <iframe width="1200" height="900" src="https://datastudio.google.com/embed/reporting/c5bb0dc2-3e9b-424c-9f72-84416e38869d/page/p_22itp37nsc" frameborder="0" style="border:0" allowfullscreen></iframe>
+    <iframe width="600" height="450" src="https://datastudio.google.com/embed/reporting/c5bb0dc2-3e9b-424c-9f72-84416e38869d/page/p_22itp37nsc" frameborder="0" style="border:0" allowfullscreen></iframe>
     """, unsafe_allow_html=True)
 
 
