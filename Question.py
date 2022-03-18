@@ -80,11 +80,11 @@ def Question4(st):
 def Question16(data_sample, st):
     st.write(f'''Question 16: Use your subsample to test the hypothesis H0: mean Male height = 170 against H1: 
              mean Male height ≠ 170 at α = 1%. Assume that Height of male is a normally distributed random 
-             variable with standard deviation α = 4.''')
+             variable with standard deviation σ = 4.''')
     mean_sample_IQ = data_sample.Male.dropna().mean()
     Z0_IQ = (mean_sample_IQ-170)/(4/math.sqrt(len(data_sample)))
     Z0005_IQ = norm.ppf(1-0.01/2)
-    result = pd.Series({'Mean of sample IQ':mean_sample_IQ, 'H0: Z0':Z0_IQ, 'Z0.005':Z0005_IQ})
+    result = pd.Series({'Mean Sample Male Height':mean_sample_IQ, 'H0: Z0':Z0_IQ, 'Z0.005':Z0005_IQ})
     if Z0_IQ>Z0005_IQ or Z0_IQ<-Z0005_IQ:
         result = result, 'Reject H0'
     else:
@@ -100,8 +100,8 @@ def Question17(data_sample, st):
     T0_lwage = (mean_sample_lwage-162)/(standard_sample_lwage/math.sqrt(len_sample_lwage))
     T01_lwage = t.ppf(1-0.1,len_sample_lwage-1)
     
-    result = pd.Series({'Mean of sample lwage':mean_sample_lwage, 
-                        'Standard of sample lwage':standard_sample_lwage ,
+    result = pd.Series({'Mean Sample Female Height':mean_sample_lwage, 
+                        'Standard Sample Female Height':standard_sample_lwage ,
                         'H0: T0':T0_lwage, 
                         f'H1: T0.1,{len_sample_lwage-1}':T01_lwage})
     if T0_lwage>T01_lwage:
@@ -123,9 +123,9 @@ def Question18(dataframe, data_sample, st):
     mean2 = data_Q18_2['Male'].mean()
     standard1= data_Q18_1.Male.std()
     standard2 = data_Q18_2.Male.std()
-    st.dataframe(pd.DataFrame({'len':[n1,n2],
+    st.dataframe(pd.DataFrame({'n':[n1,n2],
                     'Mean':[mean1, mean2],
-                    'Standard wage':[standard1, standard2]}))
+                    'Standard':[standard1, standard2]}))
     Z0_Q18a = (mean1-mean2)/math.sqrt(math.pow(standard1,2)/n1+math.pow(standard2,2)/n2)
     Z0005_Q18a = norm.ppf(1-0.01/2)
     if Z0_Q18a>Z0005_Q18a or Z0_Q18a<-Z0005_Q18a:
@@ -138,7 +138,7 @@ def Question18(dataframe, data_sample, st):
     numbers_lowHeight2 = len(data_Q18_2.loc[data_Q18_2.Male<170])
     P_lowH_1 = numbers_lowHeight1/n1
     P_lowH_2 = numbers_lowHeight2/n2
-    st.dataframe(pd.DataFrame({'len':[n1,n2],
+    st.dataframe(pd.DataFrame({'n':[n1,n2],
                                'Numbers <170 Cm':[numbers_lowHeight1,numbers_lowHeight2],
                                'P <170 Cm':[P_lowH_1,P_lowH_2]}))
     P = (numbers_lowHeight1+numbers_lowHeight2)/(n1+n2)
