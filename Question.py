@@ -2,116 +2,151 @@ import math
 from scipy.stats import norm, t
 import pandas as pd
 import random
+import numpy as np
+import matplotlib.pyplot as plt
 
-def Question1(file_name,st):
-    def random_sample(count, start, stop, step=1):
-        def gen_random():
-            while True:
-                yield random.randrange(start, stop, step)
- 
-        def gen_n_unique(source, n):
-            seen = set()
-            seenadd = seen.add
-            for i in (i for i in source() if i not in seen and not seenadd(i)):
-                yield i
-                if len(seen) == n:
-                    break
- 
-        return [i for i in gen_n_unique(gen_random,
-                                        min(count, int(abs(stop - start) / abs(step))))]
+def Question1(data_sample,st):
+    
     st.write(f'''Question 1: The mean Male height of 30 randomly selected countries is normally distributed with the mean and standard deviation calculated
     for the 30 countries. Find the probability that the average height of a randomly chosen male is greater than 170cm''')
-    ar = random_sample(30, 1, 198)
-    file = pd.read_csv(file_name)
-    Rank = file['Rank']
-    MaleH = file['Male Height in Cm']
-    data = []
-    count = 0
-    for i in range(len(Rank)):
-        for j in range(len(ar)):
-            if (Rank[i] == ar[j]):
-                data.append(MaleH[i])
-    for i in data:
-        if i>170:
-            count+=1
+    col1, col2= st.columns(2)
+    count = len(data_sample.Male.loc[data_sample.Male>170])
     result = pd.Series({'Number of country':30, 'Male greater than 170Cm':count, 'Probability':count/30})
-    return result
+    st.write(result)
 
-def Question2(file_name,st):
-   def random_sample(count, start, stop, step=1):
-       def gen_random():
-           while True:
-               yield random.randrange(start, stop, step)
-       def gen_n_unique(source, n):
-           seen = set()
-           seenadd = seen.add
-           for i in (i for i in source() if i not in seen and not seenadd(i)):
-               yield i
-               if len(seen) == n:
-                   break
-
-       return [i for i in gen_n_unique(gen_random,
-                                       min(count, int(abs(stop - start) / abs(step))))]
+def Question2(data_sample,st):
    st.write(f'''Question 2:The mean Female height of 30 randomly selected countries is normally distributed with the mean and standard deviation calculated for
     the 30 countries. Find the probability that the average height of a randomly chosen Female is greater than 160cm''')
-   ar = random_sample(30, 1, 198)
-   file = pd.read_csv(file_name)
-   Rank = file['Rank']
-   MaleH = file['Female Height in Cm']
-   data = []
-   count=0
-   for i in range(len(Rank)):
-       for j in range(len(ar)):
-           if (Rank[i] == ar[j]):
-               data.append(MaleH[i])
-   for i in data:
-       if i>160:
-           count+=1
+   count = len(data_sample.Male.loc[data_sample.Male>160])
    result = pd.Series({'Number of country': 30,'Female greater than 160Cm':count ,'Probability': count / 30})
-   return result
+   st.write(result) 
+   
+def Question3(data_sample, st):
+    st.write('''Question 3: The mean Male height of 30 randomly selected countries is normally distributed with the mean and standard deviation calculated
+    for the 30 countries. Find mean, Standard Deviation, Varience, probability that the average height of a randomly chosen Female is greater than 160cm and 
+less than 165cm.''')
+    meanMale, meanFemale = data_sample[['Male','Female']].mean()
+    stdMale, stdFemale = data_sample[['Male','Female']].std()
+    varMale, varFemale = stdMale**2, stdFemale**2
+    st.dataframe(pd.DataFrame({'Gender':['Male','Female'],
+                               'Mean':[meanMale, meanFemale],
+                               'Standard':[stdMale,stdFemale],
+                               'Variance':[varMale,varFemale]}))
+    result=len([i for i in data_sample.Male if i>160 and i<165])/30
+    st.write('Probability that the average height of a randomly chosen Female is greater than 160cm and less than 165cm.')
+    st.write(result)
+    
 
-def Question4(st):
-    st.write('''Question 4: Create Histogram for Height of Female.''')
+def Question4(data_sample,st):
+    st.write(f'''Question 4: Suppose that Height Male is a normally distributed random variable with mean μ = 173,09 and standard deviation σ = 4.95. Find the probability P(170 < Height Male < 180).
+''')
+    u = 173.09 # mean
+    o = 4.95 # standard
+    x1 = 170
+    x2 = 180
+    Z1 = (x1-u)/o
+    Z2 = (x2-u)/o
+    st.write(f'Mean = {u}')
+    st.write(f'Standard = {o}')
+    st.write('The probability P(170 < Male < 180) is') 
+    st.write(norm.cdf(Z2)-norm.cdf(Z1))
+
+
+def Question5(dfsample, st):
+    st.write('''Question 5:\na.For your random sample of n = 30 observations. Find the probability that the sample mean of Height Female lies in [160, 170].''')
+    x1 = 160
+    x2 = 170
+    u = dfsample['Female'].mean()
+    o = dfsample['Female'].std()
+    Z1 = (x1-u)/o
+    Z2 = (x2-u)/o
+    st.write(f'Mean = {u}')
+    st.write(f'Standard = {o}')
+    st.write('The probability P(160 < Female < 170) is') 
+    st.write(norm.cdf(Z2)-norm.cdf(Z1))
+    st.write('''b.How large must the random sample be if we want the standard error of the sample mean to be 1?''')
+    n = pow(o,2)
+    st.write('The sample must greater than',math.floor(n+1))
+
+
+def Question6(st):
+    st.write('''Question 6: Create Histogram for Height of Female.''')
     from PIL import Image
     image = Image.open('output.png')
     st.image(image, 'Histogram Height of Female')
-    
 
-def Question16(data_sample, st):
-    st.write(f'''Question 16: Use your subsample to test the hypothesis H0: mean Male height = 170 against H1: 
+def Question7(data_sample, st):
+    st.write('Question 7: Find the point estimation of mean and variance of Height (Male and Female).')
+    st.dataframe(pd.DataFrame({'Gender':['Male','Female'],
+                               'Mean':[data_sample.Male.mean(), data_sample.Female.mean()],
+                               'Variance':np.power([data_sample.Male.std(), data_sample.Female.std()],2)}))
+
+def Question8(data_sample, st):
+    st.write('''Question 8: Suppose that Height Male is a normally distributed random variable with standard deviation σ = 4.95.
+             Construct a 95% confidence interval on the true mean Height Male using data in your subsample.''')
+    result=t.interval(alpha=0.95, df=len(data_sample['Male']-1), 
+    loc=np.mean(data_sample['Male']),
+    scale=4.95/math.sqrt(data_sample['Male'].dropna().count())) # scale: sem(standard errol mean)=stand/căn(n)
+    st.write(result[0],'<= mean <=',result[1])
+
+def Question9(data_sample, st):
+    st.write('''Question 9: Suppose that Ft is a normally distributed random variable with standard deviation σ = 0.25
+             Construct a 99% confidence interval on the true mean Ft using data in your subsample.''')
+    d=list(data_sample['Maleft'].append(data_sample['Femaleft']))
+    df1=pd.DataFrame({'Ft':d})
+    result=t.interval(alpha=0.99, df=len(df1['Ft']-1), 
+              loc=np.mean(df1['Ft']),
+              scale=0.25/math.sqrt(df1['Ft'].count()))
+    st.write(result[0],'<= mean <=',result[1])
+
+def Question10(data_sample, st):
+    st.write('''Question 10: If we want the error in estimating the mean height Male from the two-size 
+             confidence interval to be 3.69 at 95% confidence. What sample size should be used? 
+             Assume that heght Male is a normally distributed random variable with standard deviation σ = 4.95.''')
+    
+    z = norm.ppf(1-(0.05/2))
+    n=math.pow((2*z*4.95)/3.69,2)
+    result=math.ceil(n)
+    st.write('The sample size should be used',result)
+
+
+def Question11(data_sample, st):
+    st.write(f'''Question 11: Use your subsample to test the hypothesis H0: mean Male height = 170 against H1: 
              mean Male height ≠ 170 at α = 1%. Assume that Height of male is a normally distributed random 
              variable with standard deviation σ = 4.''')
     mean_sample_IQ = data_sample.Male.dropna().mean()
     Z0_IQ = (mean_sample_IQ-170)/(4/math.sqrt(len(data_sample)))
     Z0005_IQ = norm.ppf(1-0.01/2)
-    result = pd.Series({'Mean Sample Male Height':mean_sample_IQ, 'H0: Z0':Z0_IQ, 'Z0.005':Z0005_IQ})
+    result = pd.Series({'Mean Sample Male Height':mean_sample_IQ, 'H0: Z0':Z0_IQ, 'H1: Z0.005':Z0005_IQ})
     if Z0_IQ>Z0005_IQ or Z0_IQ<-Z0005_IQ:
         result = result, 'Reject H0'
     else:
         result = result, 'Fail to reject H0'
-    return result
+    st.dataframe(result[0])
+    st.write(result[1])
 
-def Question17(data_sample, st):
-    st.write('''Question 17: Use your subsample to test the hypothesis H0: mean of Female = 160 against 
+def Question12(data_sample, st):
+    st.write('''Question 12: Use your subsample to test the hypothesis H0: mean of Female = 160 against 
              H1: mean of Female > 160 at 𝛼 = 10%. Assume that height of female is a normally distributed random variable. ''')
-    mean_sample_lwage = data_sample.Female.dropna().mean()
-    standard_sample_lwage = data_sample.Female.dropna().std()
-    len_sample_lwage = len(data_sample.Female.dropna())
-    T0_lwage = (mean_sample_lwage-162)/(standard_sample_lwage/math.sqrt(len_sample_lwage))
-    T01_lwage = t.ppf(1-0.1,len_sample_lwage-1)
+    mean_sample_Female = data_sample.Female.dropna().mean()
+    standard_sample_Female = data_sample.Female.dropna().std()
+    len_sample_Female = len(data_sample.Female.dropna())
+    T0_Female = (mean_sample_Female-162)/(standard_sample_Female/math.sqrt(len_sample_Female))
+    T01_Female = t.ppf(1-0.1,len_sample_Female-1)
     
-    result = pd.Series({'Mean Sample Female Height':mean_sample_lwage, 
-                        'Standard Sample Female Height':standard_sample_lwage ,
-                        'H0: T0':T0_lwage, 
-                        f'H1: T0.1,{len_sample_lwage-1}':T01_lwage})
-    if T0_lwage>T01_lwage:
+    result = pd.Series({'Mean Sample Female Height':mean_sample_Female, 
+                        'Standard Sample Female Height':standard_sample_Female ,
+                        'H0: T0':T0_Female, 
+                        f'H1: T0.1,{len_sample_Female-1}':T01_Female})
+    if T0_Female>T01_Female:
         result = result, 'Reject H0'
     else:
         result = result, 'Fail to reject H0'
-    return result
+    st.dataframe(result[0])
+    st.write(result[1])
 
-def Question18(dataframe, data_sample, st):
-    st.write('''Question 18: Assume that the variables are normally distributed and the variance 
+def Question13(dataframe, data_sample, st):
+    st.write('''Question 13: Assume that the variables are normally distributed and the variance 
              height within each country be equal for all countries. ''')
     data_Q18_1 = dataframe.sample(random.randrange(20,50))
     n1 = len(data_Q18_1)
@@ -148,3 +183,42 @@ def Question18(dataframe, data_sample, st):
         st.write('Reject H0')
     else:
         st.write('Fail to reject H0')
+
+def Question14(data_sample, st):
+    st.write('''Question 14. Suppose you are interested in studying the effect of Female Height. Use your subsample to calculate the regression equation of Male Height.''')
+    st.write('''a. Estimated standard error of the slope''')
+    X_train = data_sample['Female']
+    Y_train= data_sample['Male']
+    xi=sum(X_train)
+    xi2=sum(np.power(X_train,2))
+    Sxx=xi2-math.pow(xi,2)/30
+    std=data_sample['Male'].std()
+    SeB1=math.sqrt(math.pow(std,2)/Sxx)
+    st.write(SeB1)
+    
+    st.write('''b. Estimated standard error of the intercept''')
+    SeB0=math.sqrt(math.pow(std,2)*(1/30+math.pow(xi,2)/Sxx))
+    st.write(SeB0)
+ 
+    st.write('''c. Find the coefficient and intercept of determination''')
+    x=np.array([list(X_train)]).T
+    y=np.array([list(Y_train)]).T
+    ones=np.ones((x.shape[0],1),dtype=np.int8)
+    fig, ax = plt.subplots()
+    ax.plot(x,y,'ro')
+    st.pyplot(fig)
+    A=np.concatenate((x,ones),axis=1)
+    m=np.linalg.inv(A.T.dot(A)).dot(A.T.dot(y))
+    coefficient=m[0][0]
+    intercept=m[1][0]
+    st.write(f'''Coefficient:{coefficient} and Intercept:{intercept}''')
+    st.write('''d.Use your subsample to find the regression line height''')
+    x0=np.array([[150,175]]).T
+    y0=x0*m[0][0]+m[1][0]
+    fig, ax = plt.subplots()
+    ax.plot(x0,y0)
+    ax.plot(x,y,'ro')
+    st.pyplot(fig)
+    
+    
+
