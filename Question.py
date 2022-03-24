@@ -17,7 +17,7 @@ def Question1(data_sample,st):
 def Question2(data_sample,st):
    st.write(f'''Question 2:The mean Female height of 30 randomly selected countries is normally distributed with the mean and standard deviation calculated for
     the 30 countries. Find the probability that the average height of a randomly chosen Female is greater than 160cm''')
-   count = len(data_sample.Male.loc[data_sample.Male>160])
+   count = len(data_sample.Female.loc[data_sample.Female>160])
    result = pd.Series({'Number of country': 30,'Female greater than 160Cm':count ,'Probability': count / 30})
    st.write(result) 
    
