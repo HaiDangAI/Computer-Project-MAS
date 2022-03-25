@@ -129,7 +129,7 @@ st.write('The sample must greater than',math.floor(n+1))
 def Question6(st):
     st.write('''Question 6: Create Histogram for Height of Female.''')
     from PIL import Image
-    image = Image.open('output.png')
+    image = Image.open('a.png')
     st.image(image, 'Histogram Height of Female')
     
 
