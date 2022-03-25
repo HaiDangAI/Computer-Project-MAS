@@ -168,7 +168,7 @@ def Question13(dataframe, data_sample, st):
     else:
         st.write(f'Fail to reject H0')
     st.write('''b. Test the difference between two independent Male proportions that country with 
-             low Male height (Male < 170) by variable black at 5% significance level based on the data.''')
+             low Male height (Male < 170) at 5% significance level based on the data.''')
     numbers_lowHeight1 = len(data_Q18_1.loc[data_Q18_1.Male<170])
     numbers_lowHeight2 = len(data_Q18_2.loc[data_Q18_2.Male<170])
     P_lowH_1 = numbers_lowHeight1/n1
