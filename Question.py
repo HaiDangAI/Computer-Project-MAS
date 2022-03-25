@@ -72,7 +72,7 @@ def Question5(dfsample, st):
 def Question6(st):
     st.write('''Question 6: Create Histogram for Height of Female.''')
     from PIL import Image
-    image = Image.open('output.png')
+    image = Image.open('a.png')
     st.image(image, 'Histogram Height of Female')
 
 def Question7(data_sample, st):
