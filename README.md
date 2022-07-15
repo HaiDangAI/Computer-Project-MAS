@@ -1374,3 +1374,322 @@ False | Data visualization: To take 2D data, and find a different way of plottin
 False | As a replacement for (or alternative to) linear regression: For most learning applications, PCA and linear regression give substantially similar results | PCA is not linear regression. They have different goals (and cost functions), so they give different results.
 True | Data compression: Reduce the dimension of your input data x<sup>(i)</sup>, which will be used in a supervised learning algorithm (i.e., use PCA so that your supervised learning algorithm runs faster) | If your learning algorithm is too slow because the input dimension is too high, then using PCA to speed it up is a reasonable choice.
 True | Data compression: Reduce the dimension of your data, so that it takes up less memory/disk space. | If memory or disk space is limited, PCA allows you to save space in exchange for losing a little of the data's information. This can be a reasonable tradeoff.
+
+## 1. Question 1
+Let two matrices be A=[1, −2;−4, 1],B=[0, 5;3, 8]
+What is A + B?
+<ul>
+<li>[1, 7;7, 9]
+<li>[1, 7;−1, 9]
+<li>[1, −7;−7, −7]
+<b><li>[1, 3;−1, 9]</b>
+</ul>
+
+## 2. Question 2
+Let x=[2; 7; 4; 1] What is 3 * x?
+<ul>
+<li>[6, 21, 12, 3]
+<li>[2/3, 7/3, 4/3, 1/3]
+<b><li>[6; 21; 12; 3]</b>
+<li>[2/3; 7/3; 4/3; 1/3]
+</ul>
+
+
+## 3. Question 3
+Let u be a 3-dimensional vector, where specifically u=[2; 1; 8]. What is transpose(u)?
+<ul>
+<b><li>[2, 1, 8]</b>
+<li>[8; 1; 2]
+<li>[2; 1; 8]
+<li>[8, 1, 2]
+</ul>
+
+
+## 4. Question 4
+Let u and v be 3-dimensional vectors, where specifically u=[3; −5; 4] and v=[1; 2; 5] What is transpose(u)*v?
+
+<b>13</b>
+
+
+## 5. Question 5
+Let A and B be 3x3 (square) matrices. Which of the following must necessarily hold true? Check all that apply.
+<ul>
+<li>A * B = B * A
+<b><li>If C = A * B, then C is a 3x3 matrix.
+<li>If B is the 3x3 identity matrix, then A * B = B * A </b>
+<li>A * B * A = B * A * B
+
+## 1. Question 1
+A computer program is said to learn from experience E with respect to some task T and some performance measure P if its performance on T, as measured by P, improves with experience E. Suppose we feed a learning algorithm a lot of historical weather 
+data, and have it learn to predict weather. In this setting, what is T?
+
+<ul>
+<li>The weather prediction task.</li>
+
+
+<li>The process of the algorithm examining a large amount of historical weather data.</li>
+
+
+<li>The probability of it correctly predicting a future date's weather.</li>
+
+
+<li>None of these</li>
+</ul>
+
+
+## 2. Question 2
+Suppose you are working on weather prediction, and use a learning algorithm to predict tomorrow's temperature (in degrees Centigrade/Fahrenheit). Would you treat this as a classification or a regression problem?
+<ul>
+<li>Classification</li>
+<li>Regression</li>
+</ul>
+
+## 3. Question 3
+Suppose you are working on stock market prediction, Typically tens of millions of shares of Microsoft stock are traded (i.e., bought/sold) each day. You would like to predict the number of Microsoft shares that will be traded tomorrow. Would you treat this as a classification or a regression problem?
+<ul>
+<li>Classification</li>
+<li>Regression</li>
+</ul>
+
+## 4. Question 4
+Some of the problems below are best addressed using a supervised learning algorithm, and the others with an unsupervised learning algorithm. Which of the following would you apply supervised learning to? (Select all that apply.) In each case, assume some appropriate dataset is available for your algorithm to learn from.
+<ul>
+<li>Given genetic (DNA) data from a person, predict the odds of him/her developing diabetes over the next 10 years.</li>
+<li>Examine a large collection of emails that are known to be spam email, to discover if there are sub-types of spam mail.</li>
+<li>Examine the statistics of two football teams, and predict which team will win tomorrow's match (given historical data of teams' wins/losses to learn from).</li>
+<li>Take a collection of 1000 essays written on the US Economy, and find a way to automatically group these essays into a small number of groups of essays that are somehow "similar" or "related".</li>
+</ul>
+
+
+## 5. Question 5
+Which of these is a reasonable definition of machine learning?
+<ul>
+<li>Machine learning is the science of programming computers.</li>
+<li>Machine learning is the field of allowing robots to act intelligently.</li>
+<li>Machine learning learns from labeled data.</li>
+<li>Machine learning is the field of study that gives computers the ability to learn without being explicitly programmed.</li>
+</ul>
+
+## 1. Question 1
+Suppose I first execute the following Octave/Matlab commands:
+```matlab
+A = [1 2; 3 4; 5 6]; 
+B = [1 2 3; 4 5 6];
+```
+
+Which of the following are then valid commands? Check all that apply. (Hint: A' denotes the transpose of A.)
+<ul>
+<b><li>C = A * B;
+<li>C = B' + A;</b>
+<li>C = A' * B;
+<li>C = B + A;
+</ul>
+
+
+## 2. Question 2
+Let A=[16, 2, 3, 13; 5, 11, 10, 8; 9, 7, 6, 12; 4, 14, 15, 1].
+
+Which of the following indexing expressions gives B=[16, 2; 5, 11; 9, 7; 4, 14]? Check all that apply.
+<ul>
+<b><li>B = A(:, 1:2);
+<li>B = A(1:4, 1:2);</b>
+<li>B = A(:, 0:2);
+<li>B = A(0:4, 0:2);
+</ul>
+
+
+## 3. Question 3
+Let AA be a 10x10 matrix and xx be a 10-element vector. Your friend wants to compute the product Ax and writes the following code:
+
+```matlab
+v = zeros(10, 1);
+for i = 1:10
+  for j = 1:10
+    v(i) = v(i) + A(i, j) * x(j);
+  end
+end
+```
+
+How would you vectorize this code to run without any FOR loops? Check all that apply.
+<ul>
+<b><li>v = A * x;</b>
+<li>v = Ax;
+<li>v = A .* x;
+<li>v = sum (A * x);
+</ul>
+
+
+## 4. Question 4
+Say you have two column vectors v and w, each with 7 elements (i.e., they have dimensions 7x1). Consider the following code:
+```matlab
+z = 0;
+for i = 1:7
+  z = z + v(i) * w(i)
+end
+```
+Which of the following vectorizations correctly compute z? Check all that apply.
+* z = sum (v .* w);
+* <b>z = v' * w;</b>
+* z = v * w';
+* z = v .* w;
+
+
+## 5. Question 5
+In Octave/Matlab, many functions work on single numbers, vectors, and matrices. For example, the sin function when applied to a matrix will return a new matrix with the sin of each element. But you have to be careful, as certain functions have different behavior. Suppose you have an 7x7 matrix X. You want to compute the log of every element, the square of every element, add 1 to every element, and divide every element by 4. You will store the results in four matrices, A, B, C, D. One way to do so is the following code:
+```matlab
+for i = 1:7
+  for j = 1:7
+    A(i, j) = log(X(i, j));
+    B(i, j) = X(i, j) ^ 2;
+    C(i, j) = X(i, j) + 1;
+    D(i, j) = X(i, j) / 4;
+  end
+end
+```
+Which of the following correctly compute A, B, C or D? Check all that apply.
+
+* <b>C = X + 1;</b>
+* <b>D = X / 4;</b>
+* <b>B = X .^ 2;</b>
+* B = X ^ 2;
+
+## 1. Question 1
+Suppose m=4 students have taken some class, and the class had a midterm exam and a final exam. You have collected a dataset of their scores on the two exams, which is as follows: 
+<table>
+<tr><th>midterm exam	<th>(midterm exam)^2 <th>final exam</th>
+<tr><td>89	<td>7921	<td>96
+<tr><td>72	<td>5184	<td>74
+<tr><td>94	<td>8836	<td>87
+<tr><td>69	<td>4761	<td>78
+</table>
+You'd like to use polynomial regression to predict a student's final exam score from their midterm exam score. Concretely, suppose you want to fit a model of the form h_θ(x) = θ(0) + θ(1)x(1) + θ(2)x(2), where x(1)  is the midterm score and x(2) is (midterm score)^2. Further, you plan to use both feature scaling (dividing by the "max-min", or range, of a feature) and mean normalization.
+
+What is the normalized feature x(1)^(3)? (Hint: midterm = 94, final = 87 is training example 3.) Please round off your answer to two decimal places and enter in the text box below.
+
+<b>0.52</b>
+<code>Since X(1)^3, Average = 81, std deviation(Max-Min) = 25. Hence (94 - 81)/(94 - 69) = 0.52</code>
+
+## 2. Question 2
+You run gradient descent for 15 iterations with α=0.3 and compute J(θ) after each iteration. You find that the value of J(θ) decreases quickly then levels off. Based on this, which of the following conclusions seems most plausible?
+<ul>
+<li>Rather than use the current value of α, it'd be more promising to try a larger value of α (say α=1.0).
+<li>Rather than use the current value of α, it'd be more promising to try a smaller value of α (say α=0.1).
+<b><li>α=0.3 is an effective choice of learning rate.</b>
+</ul>
+
+
+## 3. Question 3
+Suppose you have m = 28training examples with n = 4 features (excluding the additional all-ones feature for the intercept term, which you should add). The normal equation is θ = (transpose(X)*X)^(-1) * transpose(X)*y. For the given values of m and n, what are the dimensions of θ, X, and y in this equation?
+<ul>
+<li>X is 28×5, y is 28×1, θ is 5×1
+<li>X is 28×4, y is 28×1, θ is4×1
+<li>X is 28×5, y is 28×5, θ is 5×5
+<b><li>X is 28×4, y is 28×1, θ is 4×4</b>
+</ul>
+
+
+## 4. Question 4
+Suppose you have a dataset with m = 1000000 examples and n = 200000 features for each example. You want to use multivariate linear regression to fit the parameters θ to our data. Should you prefer gradient descent or the normal equation?
+<ul>
+<li>The normal equation, since gradient descent might be unable to find the optimal θ.
+<li>The normal equation, since it provides an efficient way to directly find the solution.
+<b><li>Gradient descent, since (transpose(X)*X)^(-1) will be very slow to compute in the normal equation.</b>
+<li>Gradient descent, since it will always converge to the optimal θ.
+</ul>
+
+
+## 5. Question 5
+Which of the following are reasons for using feature scaling?
+<ul>
+<b><li>It speeds up gradient descent by making it require fewer iterations to get to a good solution.</b>
+<li>It is necessary to prevent the normal equation from getting stuck in local optima.
+<li>It prevents the matrix transpose(X)*X(used in the normal equation) from being non-invertable (singular/degenerate).
+<li>It speeds up gradient descent by making each iteration of gradient descent less expensive to compute.
+
+## 1. Question 1
+Suppose that you have trained a logistic regression classifier, and it outputs on a new example x a prediction hθ(x) = 0.7. This means (check all that apply):
+
+* Our estimate for P(y=0|x;θ) is 0.7. 
+* <b>Our estimate for P(y=1|x;θ) is 0.7. 
+* Our estimate for P(y=0|x;θ) is 0.3.</b>*
+* Our estimate for P(y=1|x;θ) is 0.3.
+
+
+## 2. Question 2
+Suppose you have the following training set, and fit a logistic regression classifier hθ(x) = g(θ(0)+θ(1)x(1)+θ(2)x(2)).
+Which of the following are true? Check all that apply.
+
+![](Template/quiz1-Q2.png)
+
+
+* <b> J(θ) will be a convex function, so gradient descent should converge to the global minimum.
+* Adding polynomial features (e.g., instead using hθ(x)=g(θ(0)+θ(1)x(1)+θ(2)x(2)+θ(3)x(1)^2+θ(4)x(1)x(2)+θ(5)x(2)^2)) could increase how well we can fit the training data. </b>
+* The positive and negative examples cannot be separated using a straight line. So, gradient descent will fail to converge.
+* Because the positive and negative examples cannot be separated using a straight line, linear regression will perform as well as logistic regression on this data.
+
+## 3.Question 3
+For logistic regression, the gradient is given by ∂/∂θ(j)J(θ) = 1/m∑(1->m)(hθ(x(i))−y(i))x(i)j. Which of these is a correct gradient descent update for logistic regression with a learning rate of α? Check all that apply.
+
+* θj := θj − α/m ∑(i=1->m)(transpose(θ)x−y(i))xj(i) (simultaneously update for all j).
+* <b>θ := θ − α/m ∑(i=1->m)(1/(1+e^(−transpose(θ)x(i))) − y(i))x(i). </b>
+* θ := θ − α/m ∑(i=1->m)(transpose(θ)x−y(i))x(i).
+* <b>θ := θ − α/m∑(i=1->m)(hθ(x(i))−y(i))x(i). </b>
+
+
+## 4.Question 4
+Which of the following statements are true? Check all that apply.
+
+* <b>The one-vs-all technique allows you to use logistic regression for problems in which each y(i) comes from a fixed, discrete set of values. </b>
+* For logistic regression, sometimes gradient descent will converge to a local minimum (and fail to find the global minimum). This is the reason we prefer more advanced optimization algorithms such as fminunc (conjugate gradient/BFGS/L-BFGS/etc).
+* <b>The cost function J(θ) for logistic regression trained with m≥1 examples is always greater than or equal to zero. </b>
+* Since we train one classifier when there are two classes, we train two classifiers when there are three classes (and we do one-vs-all classification).
+
+
+## 5.Question 5
+Suppose you train a logistic classifier hθ(x)=g(θ(0)+θ(1)x(1)+θ(2)x(2)). Suppose θ(0)=−6,θ(1)=1,θ(2)=0. Which of the following figures represents the decision boundary found by your classifier?
+
+![](Template/quiz1-Q4.png)
+
+**Correct option - B**
+
+![question 1](/Template/Week6-quiz2-Q1.png)
+
+![question 2](/Template/Week6-quiz2-Q2.png)
+
+![question 3](/Template/Week6-quiz2-Q3.png)
+
+![question 4](/Template/Week6-quiz2-Q4.png)
+
+![question 5](/Template/Week6-quiz2-Q5.png)
+
+![Question 1](/Template/week6-quiz-Q1.png)
+
+![Question 2](/Template/week6-quiz-Q2.png)
+
+![Question 3](/Template/week6-quiz-Q3.png)
+
+![Question 4](/Template/week6-quiz-Q4.png)
+
+![Question 5](/Template/week6-quiz-Q5.png)
+
+![question 1](/Template/week7-quiz-Q1.png)
+
+![question 2.1](/Template/week7-quiz-Q2.1.png)
+
+![question 2.2](/Template/week7-quiz-Q2.2.png)
+
+![question 3](/Template/week7-quiz-Q3.png)
+
+![question 4](/Template/week7-quiz-Q4.png)
+
+![question 5](/Template/week7-quiz-Q5.png)
+
+![question 1](/Template/week8-quiz1-Q1.png)
+
+![question 2](/Template/week8-quiz1-Q2.png)
+
+![question 3](/Template/week8-quiz1-Q3.png)
+
+![question 4](/Template/week8-quiz1-Q4.png)
+
+![question 5](/Template/week8-quiz1-Q5.png)
